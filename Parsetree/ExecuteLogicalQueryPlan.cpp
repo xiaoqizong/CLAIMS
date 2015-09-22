@@ -34,15 +34,15 @@
 #include "../Loader/Hdfsloader.h"
 
 #include "../Client/ClaimsServer.h"
-#define SQL_Parser
+#define SQL_PARSER
 using namespace std;
 
-#define SQL_Parser
+#define SQL_PARSER
 
 const int INT_LENGTH = 10;
 const int FLOAT_LENGTH = 10;
 const int SMALLINT_LENGTH = 4;
-#define SQL_Parser
+#define SQL_PARSER
 timeval start_time;	//2014-5-4---add---by Yu
 
 void ExecuteLogicalQueryPlan(const string &sql,ResultSet *&result_set,bool &result_flag,string &error_msg, string &info, int fd)

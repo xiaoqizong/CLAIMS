@@ -10,65 +10,65 @@
 #include <iostream>
 #include "log/logging.h"
 
-#define   likely(x)        __builtin_expect(!!(x), 1)
-#define   unlikely(x)      __builtin_expect(!!(x), 0)
+#define   likely(x)     __builtin_expect(!!(x), 1)
+#define   unlikely(x)   __builtin_expect(!!(x), 0)
 
-//#define CLAIMS_QUEIT
-//#ifndef CLAIMS_QUEIT  // If defined, all the output information is binded.
-#define DEBUG_QueryOptimization
-#define DEBUG_StorageManager
-#define DEBUG_Config
-#define DEBUG_ExpanderTracker
-#define DEBUG_BlockStreamExpander
-#define DEBUG_BlockStreamJoin
-#define DEBUG_PerformanceTop
-#define DEBUG_Coordinator
-#define DEBUG_Environment
-#define DEBUG_AdaptiveEndPoint
-#define DEBUG_ExchangeIteratorLowerWithWideDependency
-#define DEBUG_ExchangeIteratorWithWideDependency
-#define DEBUG_ExchangeIteratorEager
-#define DEBUG_ExchangeIteratorEagerLower
+// #define CLAIMS_QUEIT
+// #ifndef CLAIMS_QUEIT  // If defined, all the output information is binded.
+#define DEBUG_QUERY_OPTIMIZATION
+#define DEBUG_STORAGE_MANAGER
+#define DEBUG_CONFIG
+#define DEBUG_EXPANDER_TRACKER
+#define DEBUG_BLOCK_STREAM_EXPANDER
+#define DEBUG_BLOCK_STREAM_JOIN
+#define DEBUG_PERFORMANCE_TOP
+#define DEBUG_COORDINATOR
+#define DEBUG_ENVIRONMENT
+#define DEBUG_ADAPTIVE_END_POINT
+#define DEBUG_EXCHANGE_ITERATOR_LOWER_WITH_WIDE_DEPENDENCY
+#define DEBUG_EXCHANGE_ITERATOR_WITH_WIDE_DENPENDENCY
+#define DEBUG_EXCHANGE_ITERATOR_EAGER
+#define DEBUG_EXCHANGE_ITERATOR_EAGER_LOWER
 
-#define DEBUG_ExchangeRegister
-#define DEBUG_ExchangeTracker
+#define DEBUG_EXCHANGE_REGISTER
+#define DEBUG_EXCHANGE_TRACKER
 
-#define DEBUG_PortManager
-#define DEBUG_IteratorExecutorSlave
-#define DEBUG_IteratorExecutorMaster
+#define DEBUG_PORT_MANAGER
+#define DEBUG_ITERATOR_EXECUTOR_SLAVE
+#define DEBUG_ITERATOR_EXECUTOR_MASTER
 
-#define DEBUG_Client
-#define DEBUG_ClientLinsener
+#define DEBUG_CLIENT
+#define DEBUG_CLIENT_LISTENER
 
-#define DEBUG_ExchangeIteratorEager
-#define DEBUG_ExchangeIteratorSenderMaterialized
-#define DEBUG_ExpandableBlockStreamExchangeMaterialized
-#define DEBUG_BlockStreamExchangeLowerBase
-#define DEBUG_ExpandableBlockStreamExchangeLM
+#define DEBUG_EXCHANGE_ITERATOR_EAGER
+#define DEBUG_EXCHANGE_ITERATOR_SENDER_MATERIALIZED
+#define DEBUG_EXPANDABLE_BLOCK_STREAM_EXCHANGE_MATERIALIZED
+#define DEBUG_BLOCK_STREAM_EXCHANGE_LOWER_BASE
+#define DEBUG_EXPANDABLE_BLOCK_STREAM_EXCHANGE_LM
 
-#define DEBUG_ResourceManagerMaster
-#define DEBUG_ResourceManagerSlave
-#define DEBUG_Catalog
-#define DEBUG_BufferManager
+#define DEBUG_RESOURCE_MANAGER_MASTER
+#define DEBUG_RESOURCE_MANAGER_SLAVE
+#define DEBUG_CATALOG
+#define DEBUG_BUFFER_MANAGER
 
-#define DEBUG_ASTParser
+#define DEBUG_AST_PARSER
 
-#define DEBUG_ThreadPool
-#define SQL_Parser
+#define DEBUG_THREAD_POOL
+#define SQL_PARSER
 
-//#endif  //CLAIMS_QUEIT
+// #endif  //CLAIMS_QUEIT
 
 
 void RawLog(const char* where, const char* format, va_list args) {
-  const int message_max_length = 1000;  // set initial message length
-  char p[message_max_length];
-  memset(p, 0, message_max_length*sizeof(char));
+  const int kMessageMaxLength = 1000;  // set initial message length
+  char p[kMessageMaxLength];
+  memset(p, 0, kMessageMaxLength*sizeof(char));
 
-  int real_length = vsnprintf(p, message_max_length, format, args);
+  int real_length = vsnprintf(p, kMessageMaxLength, format, args);
 
   if (unlikely(real_length < 0)) {  // check error code and output
     LOG(ERROR) << "vsnprintf error. " << strerror(errno) << std::endl;
-  } else if (likely(real_length < message_max_length)) {
+  } else if (likely(real_length < kMessageMaxLength)) {
     // if it worked, output the message
 //    std::cout<<where<<p<<std::endl;
     LOG(INFO) << where << p << std::endl;
@@ -115,7 +115,7 @@ void RawElog(const char* where, const char* format, va_list args) {
 }
 
 void IteratorExecutorMasterLogging::log(const char* format, ...) {
-#ifdef DEBUG_IteratorExecutorMaster
+#ifdef DEBUG_ITERATOR_EXECUTOR_MASTER
   va_list arg;
   va_start(arg, format);
   RawLog("[IteratorExecutorMaster]: ", format, arg);
@@ -130,7 +130,7 @@ void IteratorExecutorMasterLogging::elog(const char* format, ...) {
 }
 
 void IteratorExecutorSlaveLogging::log(const char* format, ...) {
-#ifdef DEBUG_IteratorExecutorSlave
+#ifdef DEBUG_ITERATOR_EXECUTOR_SLAVE
   va_list arg;
   va_start(arg, format);
   RawLog("[IteratorExecutorSlave]: ", format, arg);
@@ -145,7 +145,7 @@ void IteratorExecutorSlaveLogging::elog(const char* format, ...) {
 }
 
 void EnvironmentLogging::log(const char* format, ...) {
-#ifdef DEBUG_Environment
+#ifdef DEBUG_ENVIRONMENT
   va_list arg;
   va_start(arg, format);
   RawLog("[Environment]: ", format, arg);
@@ -160,7 +160,7 @@ void EnvironmentLogging::elog(const char* format, ...) {
 }
 
 void AdaptiveEndPointLogging::log(const char* format, ...) {
-#ifdef DEBUG_AdaptiveEndPoint
+#ifdef DEBUG_ADAPTIVE_END_POINT
   va_list arg;
   va_start(arg, format);
   RawLog("[AdaptiveEndPoint]: ", format, arg);
@@ -175,7 +175,7 @@ void AdaptiveEndPointLogging::elog(const char* format, ...) {
 }
 
 void CoordinatorLogging::log(const char* format, ...) {
-#ifdef DEBUG_Coordinator
+#ifdef DEBUG_COORDINATOR
   va_list arg;
   va_start(arg, format);
   RawLog("[Coordinator]: ", format, arg);
@@ -190,7 +190,7 @@ void CoordinatorLogging::elog(const char* format, ...) {
 }
 
 void ExchangeTrackerLogging::log(const char* format, ...) {
-#ifdef DEBUG_ExchangeTracker
+#ifdef DEBUG_EXCHANGE_TRACKER
   va_list arg;
   va_start(arg, format);
   RawLog("[ExchangeTracker]: ", format, arg);
@@ -205,7 +205,7 @@ void ExchangeTrackerLogging::elog(const char* format, ...) {
 }
 
 void ExpanderTrackerLogging::log(const char* format, ...) {
-#ifdef DEBUG_ExpanderTracker
+#ifdef DEBUG_EXPANDER_TRACKER
   va_list arg;
   va_start(arg, format);
   RawLog("[ExpanderTracker]: ", format, arg);
@@ -220,7 +220,7 @@ void ExpanderTrackerLogging::elog(const char* format, ...) {
 }
 
 void ExchangeIteratorEagerLogging::log(const char* format, ...) {
-#ifdef DEBUG_ExchangeIteratorEager
+#ifdef DEBUG_EXCHANGE_ITERATOR_EAGER
   va_list arg;
   va_start(arg, format);
   RawLog("[ExchangeEagerUpper]: ", format, arg);
@@ -235,7 +235,7 @@ void ExchangeIteratorEagerLogging::elog(const char* format, ...) {
 }
 
 void ExchangeIteratorEagerLowerLogging::log(const char* format, ...) {
-#ifdef DEBUG_ExchangeIteratorEager
+#ifdef DEBUG_EXCHANGE_ITERATOR_EAGER
   va_list arg;
   va_start(arg, format);
   RawLog("[ExchangeEagerLower]: ", format, arg);
@@ -250,7 +250,7 @@ void ExchangeIteratorEagerLowerLogging::elog(const char* format, ...) {
 }
 
 void ExchangeIteratorSenderMaterialized::log(const char* format, ...) {
-#ifdef DEBUG_ExchangeIteratorSenderMaterialized
+#ifdef DEBUG_EXCHANGE_ITERATOR_SENDER_MATERIALIZED
   va_list arg;
   va_start(arg, format);
   RawLog("[ExchangeEagerLowerMaterialized]: ", format, arg);
@@ -265,7 +265,7 @@ void ExchangeIteratorSenderMaterialized::elog(const char* format, ...) {
 }
 
 void CatalogLogging::log(const char* format, ...) {
-#ifdef DEBUG_Catalog
+#ifdef DEBUG_CATALOG
   va_list arg;
   va_start(arg, format);
   RawLog("[Catalog]: ", format, arg);
@@ -280,7 +280,7 @@ void CatalogLogging::elog(const char* format, ...) {
 }
 
 void ResourceManagerMasterLogging::log(const char* format, ...) {
-#ifdef DEBUG_ResourceManagerMaster
+#ifdef DEBUG_RESOURCE_MANAGER_MASTER
   va_list arg;
   va_start(arg, format);
   RawLog("[ResourceManagerMaster]: ", format, arg);
@@ -295,7 +295,7 @@ void ResourceManagerMasterLogging::elog(const char* format, ...) {
 }
 
 void ResourceManagerSlaveLogging::log(const char* format, ...) {
-#ifdef DEBUG_ResourceManagerSlave
+#ifdef DEBUG_RESOURCE_MANAGER_SLAVE
   va_list arg;
   va_start(arg, format);
   RawLog("[ResourceManagerSlave]: ", format, arg);
@@ -310,7 +310,7 @@ void ResourceManagerSlaveLogging::elog(const char* format, ...) {
 }
 
 void StorageManagerLogging::log(const char* format, ...) {
-#ifdef DEBUG_StorageManager
+#ifdef DEBUG_STORAGE_MANAGER
   va_list arg;
   va_start(arg, format);
   RawLog("[StorageManager]: ", format, arg);
@@ -324,7 +324,7 @@ void StorageManagerLogging::elog(const char* format, ...) {
   va_end(arg);
 }
 void StorageManagerMasterLogging::log(const char* format, ...) {
-#ifdef DEBUG_StorageManager
+#ifdef DEBUG_STORAGE_MANAGER
   va_list arg;
   va_start(arg, format);
   RawLog("[StorageManagerMaster]: ", format, arg);
@@ -339,7 +339,7 @@ void StorageManagerMasterLogging::elog(const char* format, ...) {
 }
 
 void BufferManagerLogging::log(const char* format, ...) {
-#ifdef DEBUG_BufferManager
+#ifdef DEBUG_BUFFER_MANAGER
   va_list arg;
   va_start(arg, format);
   RawLog("[BufferManager]: ", format, arg);
@@ -354,7 +354,7 @@ void BufferManagerLogging::elog(const char* format, ...) {
 }
 
 void ASTParserLogging::log(const char* format, ...) {
-#ifdef DEBUG_ASTParser
+#ifdef DEBUG_AST_PARSER
   va_list arg;
   va_start(arg, format);
   RawLog("[ASTParser]: ", format, arg);
@@ -369,7 +369,7 @@ void ASTParserLogging::elog(const char* format, ...) {
 }
 
 void ClientListenerLogging::log(const char* format, ...) {
-#ifdef DEBUG_ClientLinsener
+#ifdef DEBUG_CLIENT_LISTENER
   va_list arg;
   va_start(arg, format);
   RawLog("[ClientListener]: ", format, arg);
@@ -384,7 +384,7 @@ void ClientListenerLogging::elog(const char* format, ...) {
 }
 
 void BlockStreamExpanderLogging::log(const char* format, ...) {
-#ifdef DEBUG_BlockStreamExpander
+#ifdef DEBUG_BLOCK_STREAM_EXPANDER
   va_list arg;
   va_start(arg, format);
   RawLog("[BlockStreamExpander]: ", format, arg);
@@ -398,7 +398,7 @@ void BlockStreamExpanderLogging::elog(const char* format, ...) {
   va_end(arg);
 }
 void PerformanceTopLogging::log(const char* format, ...) {
-#ifdef DEBUG_PerformanceTop
+#ifdef DEBUG_PERFORMANCE_TOP
   va_list arg;
   va_start(arg, format);
   RawLog("[PerformanceTop]: ", format, arg);
@@ -412,7 +412,7 @@ void PerformanceTopLogging::elog(const char* format, ...) {
   va_end(arg);
 }
 void QueryOptimizationLogging::log(const char* format, ...) {
-#ifdef DEBUG_QueryOptimization
+#ifdef DEBUG_QUERY_OPTIMIZATION
   va_list arg;
   va_start(arg, format);
   RawLog("[QueryOptimization]: ", format, arg);
@@ -427,7 +427,7 @@ void QueryOptimizationLogging::elog(const char* format, ...) {
 }
 
 void BlockStreamJoinLogging::log(const char* format, ...) {
-#ifdef DEBUG_BlockStreamJoin
+#ifdef DEBUG_BLOCK_STREAM_JOIN
   va_list arg;
   va_start(arg, format);
   RawLog("[BlockStreamJoin]: ", format, arg);
@@ -443,7 +443,7 @@ void BlockStreamJoinLogging::elog(const char* format, ...) {
 }
 
 void SQLParse_log(const char* format, ...) {
-#ifdef SQL_Parser
+#ifdef SQL_PARSER
   va_list arg;
   va_start(arg, format);
   RawLog("[SQLParse]:", format, arg);
@@ -459,7 +459,7 @@ void SQLParse_elog(const char* format, ...) {
 }
 
 void ClientLogging::log(const char* format, ...) {
-#ifdef DEBUG_Client
+#ifdef DEBUG_CLIENT
   va_list arg;
   va_start(arg, format);
   RawLog("[Client]: ", format, arg);
@@ -475,7 +475,7 @@ void ClientLogging::elog(const char* format, ...) {
 }
 
 void ThreadPoolLogging::log(const char* format, ...) {
-#ifdef DEBUG_ThreadPool
+#ifdef DEBUG_THREAD_POOL
   va_list arg;
   va_start(arg, format);
   RawLog("[ThreadPool]: ", format, arg);
